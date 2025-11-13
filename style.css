@@ -82,3 +82,78 @@ header {
   margin-top: 10px;
   font-weight: bold;
 }
+.sidebar-toggle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.3);
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.handle-left {
+  right: -15px;
+}
+
+.handle-right {
+  left: -15px;
+}
+
+/* Свёрнутые состояния */
+/* Свёрнутые состояния */
+.left-sidebar.collapsed {
+  transform: translateX(-95%);
+  opacity: 0.3;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.right-sidebar.collapsed {
+  transform: translateX(95%);
+  opacity: 0.3;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+/* Кнопки сворачивания/разворачивания */
+.sidebar-toggle {
+  position: fixed; /* отдельно, всегда поверх контента */
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 15px 20px; /* больше кнопка */
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 24px; /* крупный текст */
+  z-index: 200;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.sidebar-toggle:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Левая кнопка */
+#toggleLeft {
+  left: 0; /* приклеена к левому краю */
+}
+
+/* Правая кнопка */
+#toggleRight {
+  right: 0; /* приклеена к правому краю */
+}
+
+/* Свёрнутые панели */
+.left-sidebar.collapsed {
+  transform: translateX(-95%);
+  opacity: 0.3;
+}
+
+.right-sidebar.collapsed {
+  transform: translateX(95%);
+  opacity: 0.3;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}

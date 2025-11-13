@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Бизнес-симулятор</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="left_right.css">
+
   <style>
     body { font-family: "Times New Roman", Times, serif; padding: 30px; color: #fff; 
         font-size: 25px; 
@@ -187,14 +187,7 @@ button {
 }
 
 /* Оң жақ блоктарға жаңа класс беру */
-#opp-block-1, #opp-block-2, #opp-block-3 {
-    /* Бұрынғы closed-help класын алып тастап, осыны қосыңыз */
-    /* Егер closed-help-те басқа маңызды стиль болмаса, осыны қолданыңыз: */
-    /* Жоғарыдағы HTML-дегі closed-help класын осыған ауыстырмасаңыз да, жұмыс істейді, бірақ визуалды айырмашылық болмайды */
-    
-    /* Егер сіз екі блоктың да фонын әртүрлі қаласаңыз, HTML-дегі closed-help-ті алып тастап, мынаны қойыңыз: */
-    /* class="help-block closed-help-opportunity" */
-}
+
 
 /* Мүмкіндік батырмасының түсі (Мысалы, Алтын) */
 #opp-block-1 button, #opp-block-2 button, #opp-block-3 button {
@@ -427,69 +420,48 @@ button {
 
 
     <div class="sidebar left-sidebar" id="leftSidebar">
-        <!-- <button class="toggle-btn" id="toggleLeft">◀</button> -->
-        <div class="sidebar-content">
-
-            <h3>💼 Күнделікті Кеңестер</h3>
-
-            <div id="help-block-1" class="help-block closed-help">
-        <p>👨🏻‍💼 Туысқандық Көмек</p> 
-        <button onclick="handleHelpRequest('help-block-1')">
-             Көмек Сұрау
-        </button>
-            </div>
-
-        <div id="help-block-2" class="help-block closed-help">
-        <p>✨Кездейсоқ Сәттілік</p>
-        <button onclick="handleHelpRequest('help-block-2')">
-             Көмек Сұрау
-        </button>
+    <div class="sidebar-content">
+        <h3>💼 Күнделікті Кеңестер</h3>
+        <div id="help-block-1" class="help-block closed-help">
+            <p>👨🏻‍💼 Туысқандық Көмек</p> 
+            <button onclick="handleHelpRequest('help-block-1')">Көмек Сұрау</button>
         </div>
-    
+        <div id="help-block-2" class="help-block closed-help">
+            <p>✨Кездейсоқ Сәттілік</p>
+            <button onclick="handleHelpRequest('help-block-2')">Көмек Сұрау</button>
+        </div>
         <div id="help-block-3" class="help-block closed-help">
-        <p>🤝 Достар Қолдауы</p>
-        <button onclick="handleHelpRequest('help-block-3')">
-             Көмек Сұрау
-        </button>
-    
-            </div>
+            <p>🤝 Достар Қолдауы</p>
+            <button onclick="handleHelpRequest('help-block-3')">Көмек Сұрау</button>
+        </div>
     </div>
-    </div>
+</div>
 
     
 
 
 
 <div class="sidebar right-sidebar" id="rightSidebar">
-  <!-- <button class="toggle-btn" id="toggleRight">▶</button> -->
-  <div class="sidebar-content">
-    <h3>🚀 Кәсіпкерлік Мүмкіндіктер</h3>
-
-    <div id="opp-block-1" class="help-block closed-help">
-        <p>📈Жоғары Тәуекел</p> 
-        <button onclick="handleOpportunity('opp-block-1')">
-             Қолданып Көру
-        </button>
+    <div class="sidebar-content">
+        <h3>🚀 Кәсіпкерлік Мүмкіндіктер</h3>
+        <div id="opp-block-1" class="help-block closed-help">
+            <p>📈Жоғары Тәуекел</p> 
+            <button onclick="handleOpportunity('opp-block-1')">Қолданып Көру</button>
+        </div>
+        <div id="opp-block-2" class="help-block closed-help">
+            <p>💡Стратегиялық Шешім</p>
+            <button onclick="handleOpportunity('opp-block-2')">Қолданып Көру</button>
+        </div>
+        <div id="opp-block-3" class="help-block closed-help">
+            <p>📝Құқықтық Тәуекел</p>
+            <button onclick="handleOpportunity('opp-block-3')">Қолданып Көру</button>
+        </div>
     </div>
-
-    <div id="opp-block-2" class="help-block closed-help">
-        <p>💡Стратегиялық Шешім</p>
-        <button onclick="handleOpportunity('opp-block-2')">
-             Қолданып Көру
-        </button>
-    </div>
-    
-    <div id="opp-block-3" class="help-block closed-help">
-        <p>📝Құқықтық Тәуекел</p>
-        <button onclick="handleOpportunity('opp-block-3')">
-             Қолданып Көру
-        </button>
-    </div>
-    
 </div>
 
-
-
+<!-- Кнопки сворачивания (отдельно) -->
+<div id="toggleLeft" class="sidebar-toggle">◀</div>
+<div id="toggleRight" class="sidebar-toggle">▶</div>
 
 
 
@@ -777,81 +749,64 @@ button {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  const leftSidebar = document.querySelector(".left-sidebar");
-  const rightSidebar = document.querySelector(".right-sidebar");
+  const leftSidebar = document.getElementById("leftSidebar");
+  const rightSidebar = document.getElementById("rightSidebar");
+  const toggleLeft = document.getElementById("toggleLeft");
+  const toggleRight = document.getElementById("toggleRight");
 
-  const handleLeft = document.createElement("div");
-  const handleRight = document.createElement("div");
-
-  handleLeft.classList.add("sidebar-toggle", "handle-left");
-  handleRight.classList.add("sidebar-toggle", "handle-right");
-
-  handleLeft.textContent = "◀";
-  handleRight.textContent = "▶";
-
-  leftSidebar.appendChild(handleLeft);
-  rightSidebar.appendChild(handleRight);
-
-  // Функция для переключения состояния
-  handleLeft.addEventListener("click", () => {
+  toggleLeft.addEventListener("click", () => {
     leftSidebar.classList.toggle("collapsed");
-    handleLeft.textContent = leftSidebar.classList.contains("collapsed") ? "▶" : "◀";
+    toggleLeft.textContent = leftSidebar.classList.contains("collapsed") ? "▶" : "◀";
   });
 
-  handleRight.addEventListener("click", () => {
+  toggleRight.addEventListener("click", () => {
     rightSidebar.classList.toggle("collapsed");
-    handleRight.textContent = rightSidebar.classList.contains("collapsed") ? "◀" : "▶";
+    toggleRight.textContent = rightSidebar.classList.contains("collapsed") ? "◀" : "▶";
   });
+
+  // Optional: свайп / drag для телефонов
   function enableSwipe(sidebar, toggleBtn, direction) {
-  let startX = 0;
-  let isDragging = false;
+    let startX = 0;
+    let isDragging = false;
 
-  function onStart(e) {
-    isDragging = true;
-    startX = e.touches ? e.touches[0].clientX : e.clientX;
-  }
-
-  function onMove(e) {
-    if (!isDragging) return;
-    const currentX = e.touches ? e.touches[0].clientX : e.clientX;
-    const diff = currentX - startX;
-
-    if (direction === "left" && diff < -50) {
-      sidebar.classList.add("collapsed");
-      toggleBtn.textContent = "▶";
-      isDragging = false;
-    } else if (direction === "left" && diff > 50) {
-      sidebar.classList.remove("collapsed");
-      toggleBtn.textContent = "◀";
-      isDragging = false;
-    } else if (direction === "right" && diff > 50) {
-      sidebar.classList.add("collapsed");
-      toggleBtn.textContent = "◀";
-      isDragging = false;
-    } else if (direction === "right" && diff < -50) {
-      sidebar.classList.remove("collapsed");
-      toggleBtn.textContent = "▶";
-      isDragging = false;
+    function onStart(e) {
+      isDragging = true;
+      startX = e.touches ? e.touches[0].clientX : e.clientX;
     }
+
+    function onMove(e) {
+      if (!isDragging) return;
+      const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+      const diff = currentX - startX;
+
+      if (direction === "left" && diff < -50) {
+        sidebar.classList.add("collapsed"); toggleBtn.textContent = "▶"; isDragging = false;
+      } else if (direction === "left" && diff > 50) {
+        sidebar.classList.remove("collapsed"); toggleBtn.textContent = "◀"; isDragging = false;
+      } else if (direction === "right" && diff > 50) {
+        sidebar.classList.add("collapsed"); toggleBtn.textContent = "◀"; isDragging = false;
+      } else if (direction === "right" && diff < -50) {
+        sidebar.classList.remove("collapsed"); toggleBtn.textContent = "▶"; isDragging = false;
+      }
+    }
+
+    function onEnd() { isDragging = false; }
+
+    sidebar.addEventListener("mousedown", onStart);
+    sidebar.addEventListener("mousemove", onMove);
+    sidebar.addEventListener("mouseup", onEnd);
+    sidebar.addEventListener("mouseleave", onEnd);
+
+    sidebar.addEventListener("touchstart", onStart);
+    sidebar.addEventListener("touchmove", onMove);
+    sidebar.addEventListener("touchend", onEnd);
   }
 
-  function onEnd() { isDragging = false; }
-
-  sidebar.addEventListener("mousedown", onStart);
-  sidebar.addEventListener("mousemove", onMove);
-  sidebar.addEventListener("mouseup", onEnd);
-  sidebar.addEventListener("mouseleave", onEnd);
-
-  sidebar.addEventListener("touchstart", onStart);
-  sidebar.addEventListener("touchmove", onMove);
-  sidebar.addEventListener("touchend", onEnd);
-}
-
-// Включаем свайп
-enableSwipe(leftSidebar, handleLeft, "left");
-enableSwipe(rightSidebar, handleRight, "right");
-
+  enableSwipe(leftSidebar, toggleLeft, "left");
+  enableSwipe(rightSidebar, toggleRight, "right");
 });
+
+
 
 
     // === НАСТРОЙКА ЖӘНЕ БАСТАУ ===
