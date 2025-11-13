@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Panels — collapsible</title>
+<style>
+  :root { --panel-width: 260px; --handle-size: 18px; }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  /* Левый контейнер + содержимое */
+  .left-wrap {
+    position: relative;
+    width: var(--panel-width);
+    transition: width .28s ease;
+    background: #263645;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  .left-wrap.collapsed { width: 0; }
+
+  .left-content {
+    padding: 16px;
+    opacity: 1;
+    transition: opacity .18s ease .05s;
+  }
+  .left-wrap.collapsed .left-content { opacity: 0; transition-delay: 0s; }
+
+  /* Правый контейнер */
+  .right-wrap {
+    position: relative;
+    width: var(--panel-width);
+    transition: width .28s ease;
+    background: #33556d;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  .right-wrap.collapsed { width: 0; }
+  .right-content { padding: 16px; opacity: 1; transition: opacity .18s ease .05s; }
+  .right-wrap.collapsed .right-content { opacity: 0; transition-delay: 0s; }
+
+  /* Главный контент между панелями */
+
+
+  /* Ручки (handles) — всегда видимы поверх панели */
+  .handle-left, .handle-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--handle-size);
+    height: var(--handle-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffb33e;
+    color: #111;
+    border-radius: 3px;
+    cursor: pointer;
+    z-index: 50;
+    user-select: none;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+
+  /* Ручка слева находится справа от левой панели */
+  .handle-left { right: -9px; } /* половина handle ширины чтобы выглядела наружу */
+
+  /* Ручка справа находится слева от правой панели */
+  .handle-right { left: -9px; }
+
+  /* Если панели сжаты, меняем стрелки */
+  .left-wrap.collapsed + .main + .right-wrap {} /* placeholder, не обязательно */
+
+  /* Мелкая адаптация: при узком экране панели займут меньше */
+  @media (max-width: 700px) {
+    :root { --panel-width: 200px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="left-wrap" id="leftWrap">
+    <div class="left-content">
+      <h3>Левая панель</h3>
+      <p>Навигация, меню и т.д.</p>
+    </div>
+    <div class="handle-left" id="handleLeft" title="Свернуть/развернуть">◀</div>
+  </div>
+
+  <div class="main" id="main">
+    <h1>Основной контент</h1>
+  </div>
+
+  <div class="right-wrap" id="rightWrap">
+    <div class="handle-right" id="handleRight" title="Свернуть/развернуть">▶</div>
+    <div class="right-content">
+      <h3>Правая панель</h3>
+      <p>Доп. блоки, параметры</p>
+    </div>
+  </div>
+
+<script>
+  // Убедись, что скрипт выполняется после загрузки DOM
+  (function(){
+    const leftWrap = document.getElementById('leftWrap');
+    const rightWrap = document.getElementById('rightWrap');
+    const hLeft = document.getElementById('handleLeft');
+    const hRight = document.getElementById('handleRight');
+
+    function updateHandles() {
+      hLeft.textContent = leftWrap.classList.contains('collapsed') ? '▶' : '◀';
+      hRight.textContent = rightWrap.classList.contains('collapsed') ? '◀' : '▶';
+    }
+
+    hLeft.addEventListener('click', () => {
+      leftWrap.classList.toggle('collapsed');
+      updateHandles();
+    });
+
+    hRight.addEventListener('click', () => {
+      rightWrap.classList.toggle('collapsed');
+      updateHandles();
+    });
+
+    // Инициализация
+    updateHandles();
+  })();
+</script>
+
+</body>
+</html>

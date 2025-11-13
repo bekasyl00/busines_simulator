@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Бизнес-симулятор</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="left_right.css">
   <style>
     body { font-family: "Times New Roman", Times, serif; padding: 30px; color: #fff; 
         font-size: 25px; 
@@ -66,47 +67,31 @@ button {
 
 
 .sidebar {
-        /* 1. Блокты экранға "жабыстыру" (Қозғалмайды) */
-        position: fixed; 
-        
-        /* 2. ТОЛЫҚ БИІКТІК: 100vh - бұл экран биіктігі */
-        height: 100vh; 
-        
-        /* 3. Фонның түсі мен мөлдірлігін сақтау */
-        background: rgba(255, 255, 255, 0.1); 
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        padding: 15px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        z-index: 50; /* Орталық контенттің үстінде болуы үшін */
-        
-        /* 4. Жоғарыдан басталуы (Header-дің биіктігін ескеру) */
-        top: 170px; /* Мысалы, header 80px биіктікте болса, оның астынан бастау */
-        
-        /* 5. Биіктікті Header-дің астынан төменгі жағына дейін реттеу */
-        /* height: 100vh - 80px; немесе оңайлату үшін төмендегідей жасаңыз: */
-        height: calc(100vh - 80px); /* Экран биіктігінен Header биіктігін алып тастау */
-        
-        /* 6. Енін арттыру */
-        width: 300px; /* Жаңа ені */
-        
-        /* Бүйірлік блоктардағы контенттің жылжуына рұқсат беру */
-        overflow-y: auto; 
-    }
+  position: fixed;
+  top: 100px;
+  width: 260px;
+  height: calc(100vh - 100px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  overflow-y: auto;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
 
-    /* Сол жақ блок */
-    .left-sidebar {
-        left: 0; 
-        /* Экранның сол жақ шетіне толық жабыстыру */
-        border-right: none; /* Егер сіз қаласаңыз, оң жақ шекараны алып тастаңыз */
-    }
+/* Сол жақ панель */
+.left-sidebar { left: 0; border-right: none; }
+.left-sidebar.hidden { transform: translateX(-100%); opacity: 0; }
 
-    /* Оң жақ блок */
-    .right-sidebar {
-        right: 0;
-        /* Экранның оң жақ шетіне толық жабыстыру */
-        border-left: none; /* Егер сіз қаласаңыз, сол жақ шекараны алып тастаңыз */
-    }
+/* Оң жақ панель */
+.right-sidebar { right: 0; border-left: none; }
+.right-sidebar.hidden { transform: translateX(100%); opacity: 0; }
 
+
+
+.left-sidebar .toggle-btn { right: -18px; }
+.right-sidebar .toggle-btn { left: -18px; }
     /* 🛑 ОРТАЛЫҚ КОНТЕНТ АЙМАҒЫН ТҮЗЕТУ */
     /* Орталық контент бүйірлік блоктардың астында қалмауы үшін оған қосымша аралық беру */
     .center-content-area {
@@ -428,43 +413,56 @@ button {
   </header>
 
 
+ 
 
-<div class="gradient-bg">
+
    
-    
-    <div class="main-wrapper"> 
-    
-        <div class="sidebar left-sidebar">
-<div class="sidebar left-sidebar">
-    <h3>💼 Күнделікті Кеңестер</h3>
 
-    <div id="help-block-1" class="help-block closed-help">
+
+
+
+
+    <div class="main-wrapper"> 
+
+
+
+    <div class="sidebar left-sidebar" id="leftSidebar">
+        <!-- <button class="toggle-btn" id="toggleLeft">◀</button> -->
+        <div class="sidebar-content">
+
+            <h3>💼 Күнделікті Кеңестер</h3>
+
+            <div id="help-block-1" class="help-block closed-help">
         <p>👨🏻‍💼 Туысқандық Көмек</p> 
         <button onclick="handleHelpRequest('help-block-1')">
              Көмек Сұрау
         </button>
-    </div>
+            </div>
 
-    <div id="help-block-2" class="help-block closed-help">
+        <div id="help-block-2" class="help-block closed-help">
         <p>✨Кездейсоқ Сәттілік</p>
         <button onclick="handleHelpRequest('help-block-2')">
              Көмек Сұрау
         </button>
-    </div>
+        </div>
     
-    <div id="help-block-3" class="help-block closed-help">
+        <div id="help-block-3" class="help-block closed-help">
         <p>🤝 Достар Қолдауы</p>
         <button onclick="handleHelpRequest('help-block-3')">
              Көмек Сұрау
         </button>
-    </div>
     
-  
-</div>
+            </div>
+    </div>
+    </div>
+
+    
 
 
-        <div class="sidebar right-sidebar">
-<div class="sidebar right-sidebar">
+
+<div class="sidebar right-sidebar" id="rightSidebar">
+  <!-- <button class="toggle-btn" id="toggleRight">▶</button> -->
+  <div class="sidebar-content">
     <h3>🚀 Кәсіпкерлік Мүмкіндіктер</h3>
 
     <div id="opp-block-1" class="help-block closed-help">
@@ -497,22 +495,23 @@ button {
 
 
 
+
+
+        
+
+
+
+
+
+
+
 </div>
     
     </div>
 </div>
 
 
-
-
-
-
-  <main id="daysContainer">
-
-
-   
-
-
+ <main id="daysContainer"></main>
 
 
 
@@ -762,7 +761,7 @@ button {
 
 
 
-
+</div>
 
   </main>
 
@@ -773,6 +772,88 @@ button {
 
 
 <script>
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const leftSidebar = document.querySelector(".left-sidebar");
+  const rightSidebar = document.querySelector(".right-sidebar");
+
+  const handleLeft = document.createElement("div");
+  const handleRight = document.createElement("div");
+
+  handleLeft.classList.add("sidebar-toggle", "handle-left");
+  handleRight.classList.add("sidebar-toggle", "handle-right");
+
+  handleLeft.textContent = "◀";
+  handleRight.textContent = "▶";
+
+  leftSidebar.appendChild(handleLeft);
+  rightSidebar.appendChild(handleRight);
+
+  // Функция для переключения состояния
+  handleLeft.addEventListener("click", () => {
+    leftSidebar.classList.toggle("collapsed");
+    handleLeft.textContent = leftSidebar.classList.contains("collapsed") ? "▶" : "◀";
+  });
+
+  handleRight.addEventListener("click", () => {
+    rightSidebar.classList.toggle("collapsed");
+    handleRight.textContent = rightSidebar.classList.contains("collapsed") ? "◀" : "▶";
+  });
+  function enableSwipe(sidebar, toggleBtn, direction) {
+  let startX = 0;
+  let isDragging = false;
+
+  function onStart(e) {
+    isDragging = true;
+    startX = e.touches ? e.touches[0].clientX : e.clientX;
+  }
+
+  function onMove(e) {
+    if (!isDragging) return;
+    const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+    const diff = currentX - startX;
+
+    if (direction === "left" && diff < -50) {
+      sidebar.classList.add("collapsed");
+      toggleBtn.textContent = "▶";
+      isDragging = false;
+    } else if (direction === "left" && diff > 50) {
+      sidebar.classList.remove("collapsed");
+      toggleBtn.textContent = "◀";
+      isDragging = false;
+    } else if (direction === "right" && diff > 50) {
+      sidebar.classList.add("collapsed");
+      toggleBtn.textContent = "◀";
+      isDragging = false;
+    } else if (direction === "right" && diff < -50) {
+      sidebar.classList.remove("collapsed");
+      toggleBtn.textContent = "▶";
+      isDragging = false;
+    }
+  }
+
+  function onEnd() { isDragging = false; }
+
+  sidebar.addEventListener("mousedown", onStart);
+  sidebar.addEventListener("mousemove", onMove);
+  sidebar.addEventListener("mouseup", onEnd);
+  sidebar.addEventListener("mouseleave", onEnd);
+
+  sidebar.addEventListener("touchstart", onStart);
+  sidebar.addEventListener("touchmove", onMove);
+  sidebar.addEventListener("touchend", onEnd);
+}
+
+// Включаем свайп
+enableSwipe(leftSidebar, handleLeft, "left");
+enableSwipe(rightSidebar, handleRight, "right");
+
+});
+
+
     // === НАСТРОЙКА ЖӘНЕ БАСТАУ ===
     // 5 күнді есептеу үшін
     let username = localStorage.getItem("username") || prompt("Атыңызды енгізіңіз:");
