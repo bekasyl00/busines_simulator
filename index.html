@@ -1,127 +1,98 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-  <meta charset="UTF-8">
-  <title>Бизнес-симулятор</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Менің алғашқы сайтым</title>
 </head>
-<body class="gradient-bg">
-  <div class="login-container">
-    <h1>Бизнес-симулятор</h1>
-    <p>Атыңызды енгізіңіз:</p>
-    <input type="text" id="username" placeholder="Атыңыз...">
-    <button onclick="startGame()">Бастау</button>
-  </div>
 
-  <script>
-    function startGame() {
-      const name = document.getElementById('username').value.trim();
-      if (!name) return alert("Атыңызды жазыңыз!");
-      localStorage.setItem("username", name);
-      localStorage.setItem("capital", 100000);
-      localStorage.setItem("currentDay", 1);
-      window.location.href = "game.html";
-    }
-  </script>
+<body style="background-color: #eaf4fc; font-family: Arial, sans-serif; color: #333; margin: 30px;">
 
+    <!-- Басты тақырып -->
+    <h1 style="color: darkblue; text-align: center; font-family: 'Georgia', serif;">Сәлем, әлем!</h1>
+    <p style="text-align: center; font-size: 18px;">Бұл менің алғашқы <b>HTML</b> тілінде құрылған <i>веб-бетім</i>.</p>
+    <hr style="border: 2px solid #333; width: 80%; margin: 20px auto;">
 
+    <!-- Сілтеме -->
+    <h2 style="color: darkred; text-align: center; font-family: 'Verdana', sans-serif;">🌐 Сілтеме мысалы</h2>
+    <p style="text-align: center;">Төмендегі сілтемеге өтіп көріңіз:</p>
+    <p style="text-align: center;"><a href="https://www.google.com" target="_blank" style="text-decoration: none; color: darkred; font-weight: bold;">Google сайтына өту</a></p>
 
+    <hr style="border: 2px dashed darkred; width: 80%; margin: 20px auto;">
 
+    <!-- Сурет -->
+    <h2 style="color: darkgreen; text-align: center; font-family: 'Tahoma', sans-serif;">🌸 Сурет қосу</h2>
+    <p style="text-align: center;">Мысалы, төменде гүл суреті орналасқан:</p>
+    <p style="text-align: center;"><img src="flower.webp" alt="Гүл суреті" width="200" height="200" style="border-radius: 10px; border: 2px solid #555;"></p>
 
+    <hr style="border: 2px dotted darkgreen; width: 80%; margin: 20px auto;">
 
+    <!-- Тізімдер -->
+    <h2 style="color: darkorange; text-align: center;">📋 Тізім мысалдары</h2>
+    <div style="display: flex; justify-content: center; gap: 50px;">
+        <div>
+            <p><b>Реттелмеген тізім:</b></p>
+            <ul>
+                <li>Кофе</li>
+                <li>Шай</li>
+                <li>Сүт</li>
+            </ul>
+        </div>
+        <div>
+            <p><b>Реттелген тізім:</b></p>
+            <ol>
+                <li>Бірінші</li>
+                <li>Екінші</li>
+                <li>Үшінші</li>
+            </ol>
+        </div>
+    </div>
 
-<script>
-// === Глобальная переменная капитала ===
-let capital = 100000;
+    <hr style="border: 2px solid darkorange; width: 80%; margin: 20px auto;">
 
-// При загрузке восстанавливаем капитал из localStorage (если уже играл)
-if (localStorage.getItem('capital')) {
-  capital = parseInt(localStorage.getItem('capital'));
-}
+    <!-- Кесте -->
+    <h2 style="color: purple; text-align: center;">📊 Кесте мысалы</h2>
+    <table border="1" cellspacing="0" cellpadding="10" style="margin: 0 auto; border-collapse: collapse;">
+        <tr style="background-color: #dcdcdc;">
+            <th>Аты</th>
+            <th>Мамандығы</th>
+        </tr>
+        <tr>
+            <td>Айдана</td>
+            <td>Дизайнер</td>
+        </tr>
+        <tr>
+            <td>Бекзат</td>
+            <td>Бағдарламашы</td>
+        </tr>
+    </table>
 
-// Функция обновления капитала
-function updateCapital(amount) {
-  capital += amount;
-  if (capital < 0) capital = capital; // пока не сбрасываем — проверим ниже
-  localStorage.setItem('capital', capital);
-  renderCapital();
-  checkBankruptcy();
-}
+    <hr style="border: 2px solid purple; width: 80%; margin: 20px auto;">
 
-// Отображение капитала на странице
-function renderCapital() {
-  const display = document.getElementById("capitalDisplay");
-  if (display) display.textContent = `Қалған капитал: ${capital} ₸`;
-}
+    <!-- Медиа -->
+    <h2 style="color: teal; text-align: center; font-family: 'Courier New', monospace;">🎵 Медиа элементтері</h2>
+    <p style="text-align: center;"><b>Аудио қосу:</b></p>
+    <p style="text-align: center;">
+        <audio controls>
+            <source src="music.mp3" type="audio/mpeg">
+            Сіздің браузер аудионы қолдамайды.
+        </audio>
+    </p>
 
-// Проверка банкротства
-function checkBankruptcy() {
-  if (capital < 0) {
-    capital = 0;
-    localStorage.setItem('capital', capital);
-    renderCapital();
+    <p style="text-align: center;"><b>Видео қосу:</b></p>
+    <p style="text-align: center;">
+        <video width="400" controls>
+            <source src="lesson.mp4" type="video/mp4">
+            Сіздің браузер видеоны қолдамайды.
+        </video>
+    </p>
 
-    // Создаем затемнение и сообщение
-    const overlay = document.createElement("div");
-    overlay.style = `
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.85);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      z-index: 9999;
-    `;
-    overlay.innerHTML = `
-      <div style="text-align:center; max-width: 400px;">
-        💸 <b>БАНКРОТ!</b><br><br>
-        Капиталыңыз таусылды.<br>
-        Бәрін қайтадан бастаңыз.<br><br>
-        <button id="restartGame" style="
-          background: #ff4747;
-          border: none;
-          color: white;
-          padding: 12px 25px;
-          border-radius: 10px;
-          font-size: 18px;
-          cursor: pointer;
-        ">🔁 Қайта бастау</button>
-      </div>
-    `;
-    document.body.appendChild(overlay);
+    <hr style="border: 2px dashed teal; width: 80%; margin: 20px auto;">
 
-    // Блокировка всех действий
-    document.querySelectorAll("button, .option, .day").forEach(el => {
-      el.disabled = true;
-      el.style.pointerEvents = "none";
-      el.style.opacity = "0.4";
-    });
-
-    // Кнопка перезапуска
-    document.getElementById("restartGame").onclick = () => {
-      localStorage.clear();
-      location.reload();
-    };
-  }
-}
-
-// === Запускаем отображение капитала при загрузке страницы ===
-document.addEventListener("DOMContentLoaded", renderCapital);
-</script>
-
-
-
-
-
-
-
-
-
-
+    <!-- Дәйексөз -->
+    <h2 style="color: brown; text-align: center;">💬 Дәйексөз мысалы</h2>
+    <blockquote style="font-style: italic; font-family: 'Georgia', serif; color: #444; text-align: center; border-left: 5px solid #888; padding-left: 15px;">
+        "Білім – инемен құдық қазғандай."
+    </blockquote>
 
 </body>
 </html>
